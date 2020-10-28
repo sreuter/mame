@@ -1030,6 +1030,15 @@ uint16_t neogeo_base_state::unmapped_r(address_space &space)
  *
  *************************************/
 
+void neogeo_base_state::devDebug_w(u8 data)
+{
+    static char debugStr[256];
+    static char *strPtr=debugStr;
+
+    if(!(*strPtr++=data))
+        printf("%s",strPtr=debugStr);
+}
+
 WRITE_LINE_MEMBER(ngarcade_base_state::set_save_ram_unlock)
 {
 	m_save_ram_unlocked = state;
@@ -1716,6 +1725,7 @@ void neogeo_base_state::base_main_map(address_map &map)
 	map(0x3c0000, 0x3c000f).mirror(0x01fff0).w(FUNC(neogeo_base_state::video_register_w));
 	map(0x3e0000, 0x3fffff).r(FUNC(neogeo_base_state::unmapped_r));
 	map(0x400000, 0x401fff).mirror(0x3fe000).rw(FUNC(neogeo_base_state::paletteram_r), FUNC(neogeo_base_state::paletteram_w));
+map(0xc00000, 0xc1ffff).mirror(0x0e0000).w(FUNC(neogeo_base_state::devDebug_w));
 }
 
 void ngarcade_base_state::neogeo_main_map(address_map &map)

@@ -1,3 +1,34 @@
+# Branch additions
+
+## How to use debug printing
+
+```
+sprintf((char *)0xc00000, "Important numbers: %d, %d\n", important_number_a, important_number_b);
+```
+
+
+## How to use GDB
+
+```
+m68k-neogeo-elf-gdb ./test.o
+
+target remote :23946
+
+b *0x00C0040E
+b *0x00c00414
+b scene_title.c:144
+
+c # continue
+
+clear *0x00C0040E
+clear *0x00c00414
+clear scene_title.c:144
+
+
+# run 'bt' when break occurs (back trace)
+# n .. to step over whole function
+# s .. step on line basis
+```
 
 # **MAME** #
 
